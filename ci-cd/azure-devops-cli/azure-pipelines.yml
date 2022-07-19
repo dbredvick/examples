@@ -1,0 +1,38 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  branches:
+    include:
+      - "*"
+
+# Azure specific config
+pool:
+  name: local
+  vmImage: ubuntu-latest
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "14.x"
+    displayName: "Install Node.js"
+
+  - script: |
+      npm install
+      npm run detect-vercel-env
+      npm run vercel-env-pull
+      npm run vercel-build
+      npm run vercel-deploy
+      npm run vercel-sync
+    displayName: "npm install, build, and deploy"
+    env:
+      AZURE_REPOSITORY_ID: $(Build.Repository.ID)
+      AZURE_PULL_REQUEST_ID: $(System.PullRequest.PullRequestId)
+      AZURE_ORG_URL: https://dev.azure.com/dbredvick0146
+      AZURE_PAT: $(AZURE_PAT)
+      VERCEL_TOKEN: $(VERCEL_TOKEN)
+      VERCEL_DASHBOARD: https://vercel.com/vercel-se-team/azure-devops-cicd
+      VERCEL_ORG_ID: team_sbmOELGGIDbm4xe1DINFBleh
+      VERCEL_PROJECT_ID: prj_MyK4xv0g3MBvowiu0bcTFwpjWkCf

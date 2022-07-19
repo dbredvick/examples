@@ -1,0 +1,30 @@
+{
+  "name": "azure-devops-cli",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "detect-vercel-env": "export VERCEL_ENV=node ./scripts/detect-vercel-env.mjs",
+    "deploy-prod": "vercel --prod --confirm --debug --token $VERCEL_TOKEN",
+    "deploy-preview": "vercel deploy --prebuilt --confirm --debug --token $VERCEL_TOKEN",
+    "vercel-pull": "vercel pull --yes --environment=${VERCEL_ENV}",
+    "vercel-build": "vercel build --environment=${VERCEL_ENV}",
+    "vercel-deploy": "vercel deploy --prebuilt > deployment-url.txt",
+    "vercel-sync": "TODO — need to update the deployment URL in Azure DevOps"
+  },
+  "dependencies": {
+    "next": "12.1.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "azure-devops-node-api": "^11.0.1",
+    "cross-env": "^7.0.3",
+    "eslint": "8.18.0",
+    "eslint-config-next": "12.1.6",
+    "vercel": "https://files-pm3c43h6u-tootallnate.vercel.app"
+  }
+}
